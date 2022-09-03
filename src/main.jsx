@@ -6,10 +6,11 @@ import App from './App'
 
 // Styles
 import './index.css'
+import theme from './styles/theme';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider resetCSS theme={theme}>
       <App />
     </ChakraProvider>
   </React.StrictMode>
