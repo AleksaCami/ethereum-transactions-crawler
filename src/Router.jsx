@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -19,19 +20,20 @@ const AppRoute = ({ component: Component }) => {
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        {routes.map(({ exact, path, component, fullLayout }) => (
-          <AppRoute
-            exact={exact}
-            path={path}
-            component={component}
-            key={path}
-            fullLayout={fullLayout}
-          />
-        ))}
-      </Switch>
-    </Router>
+    <Box marginLeft={12} marginRight={12}>
+      <Router>
+        <Switch>
+          {routes.map(({ exact, path, component }, idx) => (
+            <AppRoute
+              exact={exact}
+              path={path}
+              component={component}
+              key={idx}
+            />
+          ))}
+        </Switch>
+      </Router>
+    </Box>
   );
 };
 
