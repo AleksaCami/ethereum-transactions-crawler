@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react'
+import { mode } from '@chakra-ui/theme-tools'
 
 // Version 1: Using objects
 const theme = extendTheme({
@@ -9,13 +10,19 @@ const theme = extendTheme({
         bg: 'gray.600',
         color: 'white',
       },
+      '*::placeholder': {
+        color: mode('gray.400', 'whiteAlpha.400'),
+      },
       // styles for the `a`
       a: {
-        color: 'teal.500',
+        color: 'gray.700',
         _hover: {
           textDecoration: 'underline',
         },
       },
+      th: {
+        color: ''
+      }
     },
   },
 });
