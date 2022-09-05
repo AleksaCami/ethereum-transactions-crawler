@@ -22,7 +22,6 @@ import { isEmpty } from '../utils/general.utils';
 function HomePage() {
   const [walletAddress, setWalletAddress] = useState('');
   const [accBallanceAddress, setAccBalanceAddress] = useState('');
-  const [page, setPage] = useState(1);
   const [startBlock, setStartBlock] = useState('');
   const [endBlock, setEndBlock] = useState('');
   const [defaultEndBlock, setDefaltEndBlock] = useState(null);
@@ -69,7 +68,12 @@ function HomePage() {
       ETHERSCAN_API_KEY
     );
 
-    console.log(response);
+    let startBlockParam = 0;
+    let endBlockParam = defaultEndBlock;
+
+    history.replace(`/balance/${accBallanceAddress}/${startBlockParam}/${endBlockParam}`);
+    // Nesto zeza hash router, morao sam da premostim ovako :)
+    window.location.reload();
   }
 
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { format } from 'date-fns/fp'
 
 // Components
 import { Box, Center, Flex, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react';
@@ -9,8 +8,10 @@ import "react-pagination-js/dist/styles.css"; // import css
 
 // Constants
 import { ETHERSCAN_API_KEY } from '../config/apikey';
-import { formatTimestampToDate } from '../utils/general.utils';
+import { ETH_DECIMAL_DIVIDER } from '../constants/app.constants';
 
+// Utils
+import { formatTimestampToDate } from '../utils/general.utils';
 
 function TransactionsList({ match }) {
   const [transactions, setTransactions] = useState([]);
@@ -35,7 +36,6 @@ function TransactionsList({ match }) {
     );
 
     setTransactions(response.data.result);
-    console.log(response.data);
   }
 
   useEffect(() => {
@@ -51,7 +51,7 @@ function TransactionsList({ match }) {
           </Heading>
         </Flex>
 
-        <Center py={12}>
+        <Center py={8}>
           <Box
             role={'group'}
             p={6}
@@ -88,7 +88,7 @@ function TransactionsList({ match }) {
                         <Td color={'black'}>{blockHash}</Td>
                         <Td color={'black'}>{formatTimestampToDate(timeStamp)}</Td>
                         <Td color={'black'}>{blockNumber}</Td>
-                        <Td color={'black'}>{value}</Td>
+                        <Td color={'black'}>{value / ETH_DECIMAL_DIVIDER}</Td>
                         <Td color={'black'}>{from}</Td>
                         <Td color={'black'}>{to}</Td>
                       </Tr>
