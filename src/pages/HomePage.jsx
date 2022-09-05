@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import {
   Box,
   Button,
@@ -22,14 +23,15 @@ function HomePage() {
   const [walletAddress, setWalletAddress] = useState('');
   const [accBallanceAddress, setAccBalanceAddress] = useState('');
   const [page, setPage] = useState(1);
-  const [startBlock, setStartBlock] = useState(null);
-  const [endBlock, setEndBlock] = useState(null);
+  const [startBlock, setStartBlock] = useState('');
+  const [endBlock, setEndBlock] = useState('');
   const [defaultEndBlock, setDefaltEndBlock] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
 
   const toast = useToast();
+  const history = useHistory();
 
-  const searchTransactions = async (event) => {
+  const searchTransactions = (event) => {
     event.preventDefault();
     let startBlockParam = startBlock;
     let endBlockParam = endBlock;
@@ -41,20 +43,9 @@ function HomePage() {
       endBlockParam = defaultEndBlock;
     }
 
-    const response = await axios
-      .get(
-        "https://api.etherscan.io/api?module=account&action=txlist&address=" +
-        walletAddress +
-        "&startblock=" +
-        startBlockParam +
-        "&endblock=" +
-        endBlockParam +
-        "&page=" +
-        page +
-        "&sort=asc&offset=10&apikey=" +
-        ETHERSCAN_API_KEY
-      );
-    console.log(response);
+    history.replace(`/transactions/${walletAddress}/${startBlockParam}/${endBlockParam}`);
+    // Nesto zeza hash router, morao sam da premostim ovako :)
+    window.location.reload();
   }
 
   const checkAccountBalance = async (event) => {
@@ -101,7 +92,7 @@ function HomePage() {
 
   useEffect(() => {
     getEndBlock()
-  }, [])
+  }, []);
 
   return (
     <Flex
